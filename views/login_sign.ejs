@@ -1,0 +1,93 @@
+<!doctype html> 
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+<title>註冊使用者</title>
+ 
+</head> 
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<body>
+
+<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+
+    <% switch(show){ case 1 : %>
+        <script type="text/javascript"> 
+            swal.fire({
+                title: '登入訊息',
+                text: "登陸成功",
+                icon: 'success',
+                }).then(function (result) {
+                if (true) {
+                window.location = "index";
+            }
+            });         
+            //alert("登陸成功"); 
+            //window.location.href="welcom.php";
+        </script> 
+    <%break; 
+      case 2 :
+    %>
+    <script type="text/javascript"> 
+        //alert("使用者名稱不存在"); 
+        //Swal.fire('使用者名稱不存在')
+        
+        swal.fire({
+            title: '登入訊息',
+            text: "使用者名稱不存在",
+            icon: 'error',
+            }).then(function (result) {
+            if (true) {
+                window.location = "login";
+            }
+        });       
+        //window.location.href="login.html"; 
+    </script>
+    <%break; 
+        case 3 :
+    %>
+        <script type="text/javascript"> 
+            //alert("使用者名稱不存在"); 
+            //Swal.fire('使用者名稱不存在')
+            
+            swal.fire({
+                title: '登入訊息',
+                text: "密碼錯誤",
+                icon: 'error',
+                }).then(function (result) {
+                if (true) {
+                window.location = "login";
+                }
+            });       
+            //window.location.href="login.html"; 
+        </script>
+
+    <%break; 
+        case 4 :
+    %>
+        <script type="text/javascript"> 
+            swal.fire({
+                    title: '使用者異常',
+                    text: "請重新登入",
+                    icon: 'warning',
+                    }).then(function (result) {
+                    if (true) {
+                    window.location = "index";
+                }
+            });         
+            /*alert("異常登入:(,請重新登入"); 
+            window.location.href="Logout.php";*/ 
+        </script> 
+
+    <%break ; } %>
+
+
+
+
+<script type="text/javascript"> 
+   /* alert("註冊成功"); 
+    window.location.href="login.html"; */
+</script> 
+
+</body> 
+</html> 

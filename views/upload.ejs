@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>上傳檔案</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Noto+Sans+TC"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Andika+New+Basic"
+      rel="stylesheet"
+    />
+    <style>
+      .root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-weight: 600;
+        height: 100vh;
+        font-size: 30px;
+      }
+
+      .folder-img {
+        max-width: 90vw;
+        width: 60vh;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .folder-path {
+        font-family: "Andika New Basic", "Noto Sans TC";
+        word-wrap: break-word;
+      }
+
+      .btn-wrapper {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .progress-wrapper {
+        border: 1px solid #333333;
+        border-radius: 20px;
+      }
+
+      .width-constraint {
+        max-width: 90vw;
+        width: 60vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script src="https://unpkg.com/vue@3.0.4/dist/vue.global.prod.js"></script>
+    <script>
+      const app = Vue.createApp({
+        template: `
+            <div class="root">
+                <span class="folder-path">{{file ? file.name : '請選擇檔案'}}</span>
+                <img v-if="mode ==='uploading'" class="folder-img mb-8" src="./uploading-cat.gif" alt="上傳中...">
+                <img v-else class="folder-img" :src="file ? './folder-full.svg' : 'dist/img/facebook-user.jpg'"
+                     alt="資料夾圖片" title="選擇檔案" @click="pickFile">
+                <input id="upload-file" type="file" class="hidden" @change="handleFiles($event.target.files)">
+                <div class="btn-wrapper width-constraint" v-if="mode === 'pick'">
+                    <button class="btn btn-primary mx-2 text-2xl w-1/2" @click="pickFile">選擇檔案</button>
+                    <button class="btn btn-success mx-2 text-2xl w-1/2" @click="handleUpload">上傳檔案</button>
+                </div>
+                <div class="progress progress-wrapper h-8 width-constraint" v-if="mode === 'uploading'">
+                    <div class="progress-bar progress-bar-animated progress-bar-striped text-xl"
+                         :style="{width:perWidth}"
+                         role="progressbar">
+                        {{percent}} %
+                    </div>
+                </div>
+                <div class="alert alert-success block text-center width-constraint" role="alert" style="width: 60vh"
+                     v-if="mode === 'done'">
+                    成功上傳檔案 😁
+                </div>
+            </div>`,
+
+        data() {
+          return {
+            percent: 0,
+            file: null,
+            mode: "pick" // mode : pick . uploading . done
+          };
+        },
+
+        computed: {
+          perWidth() {
+            return this.percent + "%";
+          }
+        },
+
+        methods: {
+          pickFile() {
+            document.getElementById("upload-file").click();
+          },
+
+          handleFiles(files) {
+            this.file = files[0];
+            this.mode = "pick";
+            //console.log("choose");
+            //handleUpload() ;
+
+            this.mode = "uploading";
+
+            let file = this.file;
+            let reader = new FileReader();
+            let CHUNK_SIZE = 10 * 1024; // 10 KB
+            let processTimes = 0;
+
+            reader.onload = function (e) {
+              let buffer = new Uint8Array(e.target.result);
+
+              let start = processTimes * CHUNK_SIZE;
+              let next = (processTimes + 1) * CHUNK_SIZE;
+              let end = next > file.size ? file.size : next;
+              console.log(`current start = ${start},end = ${end}`);
+
+              // send the buffer to api server
+              sendTypedArray(buffer, file.name);
+            };
+
+            const nextSeek = () => {
+              ++processTimes;
+
+              // get percent of send file progress
+              const total = file.size;
+              const next = processTimes * CHUNK_SIZE;
+              const end = next > file.size ? file.size : next;
+              const percent = Math.floor((end / total) * 100);
+
+              if (percent === 100) {
+                setTimeout(() => {
+                  this.mode = "done";
+                  this.file = null;
+                }, 1000);
+              }
+
+              // change to progress bar mode
+              this.percent = percent;
+
+              if (processTimes * CHUNK_SIZE < file.size) seek();
+            };
+
+            function sendTypedArray(typedArray, fileName) {
+              fetch("/photos/upload", {
+                body: JSON.stringify({ bytes: typedArray, fileName }), // must match 'Content-Type' header
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, same-origin, *omit
+                headers: {
+                  "user-agent": "Mozilla/4.0 MDN Example",
+                  "content-type": "application/json"
+                },
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors" // no-cors, cors, *same-origin
+                // redirect: 'follow', // manual, *follow, error
+                // referrer: 'no-referrer', // *client, no-referrer
+              }).then(() => nextSeek());
+              // .catch(console.error);
+            }
+
+            // 檔案切分好幾塊 , 然後最後把檔案 merge 起來
+            function seek() {
+              let start = processTimes * CHUNK_SIZE;
+              let next = (processTimes + 1) * CHUNK_SIZE;
+              let end = next > file.size ? file.size : next;
+
+              // cutting big files to small chunks
+              let slice = file.slice(start, end);
+              reader.readAsArrayBuffer(slice);
+            }
+
+            seek();
+
+        },
+
+          handleUpload() {
+            this.mode = "uploading";
+
+            let file = this.file;
+            let reader = new FileReader();
+            let CHUNK_SIZE = 10 * 1024; // 10 KB
+            let processTimes = 0;
+
+            reader.onload = function (e) {
+              let buffer = new Uint8Array(e.target.result);
+
+              let start = processTimes * CHUNK_SIZE;
+              let next = (processTimes + 1) * CHUNK_SIZE;
+              let end = next > file.size ? file.size : next;
+              console.log(`current start = ${start},end = ${end}`);
+
+              // send the buffer to api server
+              sendTypedArray(buffer, file.name);
+            };
+
+            const nextSeek = () => {
+              ++processTimes;
+
+              // get percent of send file progress
+              const total = file.size;
+              const next = processTimes * CHUNK_SIZE;
+              const end = next > file.size ? file.size : next;
+              const percent = Math.floor((end / total) * 100);
+
+              if (percent === 100) {
+                setTimeout(() => {
+                  this.mode = "done";
+                  this.file = null;
+                }, 1000);
+              }
+
+              // change to progress bar mode
+              this.percent = percent;
+
+              if (processTimes * CHUNK_SIZE < file.size) seek();
+            };
+
+            function sendTypedArray(typedArray, fileName) {
+              fetch("/photos/upload", {
+                body: JSON.stringify({ bytes: typedArray, fileName }), // must match 'Content-Type' header
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, same-origin, *omit
+                headers: {
+                  "user-agent": "Mozilla/4.0 MDN Example",
+                  "content-type": "application/json"
+                },
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors" // no-cors, cors, *same-origin
+                // redirect: 'follow', // manual, *follow, error
+                // referrer: 'no-referrer', // *client, no-referrer
+              }).then(() => nextSeek());
+              // .catch(console.error);
+            }
+
+            // 檔案切分好幾塊 , 然後最後把檔案 merge 起來
+            function seek() {
+              let start = processTimes * CHUNK_SIZE;
+              let next = (processTimes + 1) * CHUNK_SIZE;
+              let end = next > file.size ? file.size : next;
+
+              // cutting big files to small chunks
+              let slice = file.slice(start, end);
+              reader.readAsArrayBuffer(slice);
+            }
+
+            seek();
+          }
+        } // method
+      });
+
+      app.mount(".root");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="dist/css/main.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="navbar-top.css" rel="stylesheet">
+</head>
+
+<body>
+    <title>Home</title>
+    <!-- Main Sidebar Container -->
+    <!-- Content Wrapper. Contains page content -->
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Article Page</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+
+                        <li class='breadcrumb-item'><a href='chatroom'>chatroom</a></li>
+                        <li class="breadcrumb-item"><a href="index">Article</a></li>
+                        <!-- 如果seesion有登錄紀錄顯示的 -->
+                        <% if(session){ %>
+                            <li class='breadcrumb-item'><a href='profile?user=<%- account %>'>Main page</a></li>
+                            <li class='breadcrumb-item'><a href='logout'>Log out</a></li>
+                            <% }else{ %>
+                                <!-- 沒有seesion的登錄紀錄顯示的 -->
+                                <li class='breadcrumb-item'><a href='login'>Log in</a></li>
+                                <li class='breadcrumb-item active'><a href='register'>Register</a></li>
+                                <% } %>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+        <!-- <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Articles</h3>
+      </div> -->
+
+        <main class="container">
+            <div class="bg-light p-5 rounded">
+                <h1>文章</h1>
+                <p id="txtHint" class="lead"></p>
+            </div>
+
+            <div class="">
+                <table id="employee_data" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Tittle</th>
+                            <th>time</th>
+                        </tr>
+                    </thead>
+
+
+                    <%  for(var i=0; i<item.length ;i++){ %>
+                        <tr>
+                            <td>
+                                <a href="profile?user=<%- item[i].email %>" class="nav-link">
+                                    <%- item[i].name %>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="articleshow?article=<%- item[i].ID %>" class="nav-link">
+                                    <%- item[i].tittle %>
+                            </td>
+                            <td>
+                                <%- item[i].time %>
+                            </td>
+                        </tr>
+                        <% } %>
+
+                            <!-- <?php  
+             while($row = mysqli_fetch_array($result))  
+             {  
+                  echo '  
+                  <tr>  
+                       <td>' . $row['email'] . '</td>
+                       <td>'  .'<a href="http://localhost/wwwhw4/aritcleshow.php?article='.$row['ID'].' "class="nav-link"> '.$row['tittle']. '</td>
+                       <td>' . $row['time'] . '</td>
+
+                  </tr>  
+                  ';  
+             }
+             mysqli_close($connect);  
+             ?>   -->
+                </table>
+            </div>
+        </main>
+
+
+    </section>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+
+    <!-- jQuery -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#employee_data').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "dom": '<lf<t>ip>',
+                "order": [
+                    [2, "desc"]
+                ],
+            });
+        });
+
+        $(document).ready(function() {
+            $('.dataTables_filter input[type="search"]').css({
+                'width': '1297px'
+            });
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

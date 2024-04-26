@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Registration Page</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page">
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<div class="register-box">
+  <div class="register-logo">
+    <a href="../../index2.html"><b>註冊系統</b></a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">註冊帳號</p>
+
+      <form >
+
+        <div class="input-group mb-3">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="userID" placeholder="名稱">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>          
+          <input type="text" class="form-control" placeholder="email" name="username" id="username" >
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="密碼" name="password" id="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Retype password" id="assertpassword">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="button" onclick = "check()" class="btn btn-primary btn-block">Register</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      <p id="show info"> </p>
+      <div>
+        <span id="code"></span> 
+      </div>
+      <a href="login" class="text-center" id="text-center" >I already have a membership</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+
+
+<script type="text/javascript"> 
+
+
+
+function count()
+  { 
+      obj=document.getElementById('code'); 
+      s=5; 
+      setInterval(function(){ obj.innerHTML=s--+"秒後跳轉到指定頁面"; 
+      if(s==0){ window.location.href='login'; } },1000); 
+          console.log("test");
+  }
+
+
+  function check() { 
+  var username=document.getElementById("username").value; 
+  var password=document.getElementById("password").value;
+  var name=    document.getElementById("userID").value;
+
+  
+
+  var assertpassword=document.getElementById("assertpassword").value; 
+  var regex=/^[/s] $/; 
+  if(regex.test(username)||username.length==0)//判定使用者名稱的是否前後有空格或者使用者名稱是否為空 
+  { 
+    //alert("使用者名稱格式不對"); 
+    //Swal.fire('Any fool can use a computer')
+    swal.fire({
+            title: '登入訊息',
+            text: "使用者名稱格式不對",
+            icon: 'error',
+            }).then(function (result) {
+            if (true) {
+            //window.location = "login.html";
+        }
+        });     
+    return false; 
+  }  
+  if(regex.test(password)||password.length==0){ 
+
+      swal.fire({
+              title: '錯誤',
+              text: "帳號密碼格式不對",
+              icon: 'error',
+              }).then(function (result) {
+              if (true) {
+              //window.location = "login.html";
+              }
+          });      
+
+    //alert("密碼格式不對"); 
+    return false;     
+  } 
+  if(password!=assertpassword){
+        swal.fire({
+                title: '錯誤',
+                text: "密碼格式不對",
+                icon: 'error',
+                }).then(function (result) {
+                if (true) {
+                //window.location = "login.html";
+            }
+            });     
+        
+      //alert("兩次密碼不一致"); 
+      return false; 
+    }
+    // false 
+
+
+
+    // if (window.XMLHttpRequest)
+    //   {
+    //       // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行的代码
+    //       xmlhttp=new XMLHttpRequest();
+    //   }
+    //   else
+    //   {    
+    //       //IE6, IE5 浏览器执行的代码
+    //       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    //   }
+    //   xmlhttp.onreadystatechange=function()
+    //   {
+    //       str ="" ;
+    //       if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    //       {   
+    //           str = xmlhttp.responseText ;
+    //           document.getElementById("show info").innerHTML=str ;//xmlhttp.responseText; //receive reture value
+    //           console.log(str)
+    //           if(str=="註冊成功")
+    //           {
+    //             count() ;
+    //             //alert();
+    //           }
+    //           else 
+    //           {
+                
+    //           }
+    //           //alert("str="+str+" "+str.length );
+    //         }
+    //         //count();
+    //   }
+    //   xmlhttp.open("post","register_account?email="+username+"&password="+password+"&name="+name,true);
+    //   var str = 'email='+username+"&password="+password+"&name="+name ;
+    //   var data = 'content='+str;
+    //   xmlhttp.send(data);
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('post','/register_account');
+    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    //  content=1234&title=hello
+    var data = 'email='+username+"&password="+password+"&name="+name;
+    xhr.send(data);
+    xhr.onload = function(){
+        var str ="" ;
+        str = xhr.responseText ;
+        document.getElementById("show info").innerHTML=str ;
+        console.log(xhr.responseText);
+        if(str=="註冊成功")
+        {
+          count() ;
+          //alert();
+        }
+        else 
+        {
+          
+        }
+        //alert("str="+str+" "+str.length );
+      
+
+
+    }// xhr.onload 
+
+
+  }//check()
+
+
+
+
+  /*function myFunction() {
+    setInterval(function(){ alert("Hello"); }, 1000);
+  }*/
+
+  //count(); 
+  
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+
+<html>
+
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+
+    <div id="app">
+        <div class="container">
+          <div class="row">
+            <input
+              id="upload"
+              type="file"
+              accept="image/*"
+            />
+          </div>
+          <div class="row">
+            <img id="upload-img" />
+          </div>
+        </div>
+      </div>
+
+
+</body>
+
+
+</html>
+
+
+
+<script>
+var imgs=[];//存儲圖片連結 //為文件上傳添加change事件 
+var fileM=document.querySelector("#file"); 
+$("#file").on("change",function(){ console.log(fileM.files); 
+    //獲取文件對象，files是文件選取控制項的屬性，存儲的是文件選取控制項選取的文件對象，類型是一個數組 
+    var fileObj=fileM.files[0]; //創建formdata對象，formData用來存儲表單的數據，表單數據時以鍵值對形式存儲的。 
+    var formData=new FormData(); 
+    formData.append('file',fileObj);
+    //創建ajax對象 
+    var ajax=new XMLHttpRequest(); //發送POST請求 
+    ajax.open("POST","/photos/upload",true); 
+    ajax.send(formData); ajax.onreadystatechange=function()
+    { if (ajax.readyState == 4) 
+        { if (ajax.status>=200 &&ajax.status<300||ajax.status==304) 
+            { console.log(ajax.responseText); 
+                var obj=JSON.parse(ajax.responseText); 
+                alert(obj.msg); 
+                if(obj.err == 0){ //上傳成功後自動動創建img標籤放在指定位置 
+                    var img =$("<img src='"+obj.msg+"' alt='' />"); $(".con").append(img); imgs.push(obj.msg); 
+                }
+                else{ 
+                    alert(obj.msg); 
+                } 
+            } 
+        } 
+    } 
+});
+
+
+</script>

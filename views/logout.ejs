@@ -1,0 +1,81 @@
+<!doctype html> 
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+</head> 
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<body > 
+
+<div class="block"> 
+    <span>提交成功
+        <span id="code"></span> 
+</div> 
+
+
+
+<?php 
+    //session_start ();//將session銷燬時呼叫destroy 
+    //session_destroy (); 
+?> 
+</body>
+
+
+<script type="text/javascript">
+
+    
+		function count()
+		{ 
+            obj=document.getElementById('code'); 
+            s=1; 
+            setInterval(function(){ obj.innerHTML=s--+"秒後跳轉到指定頁面"; 
+            if(s==0){ window.location.href='index'; } },500); 
+                console.log("test");
+        }
+    count(); 
+          /*  let timerInterval
+            Swal.fire({
+            title: '登出中,跳回登入系統',
+            html: 'I will close in <b></b> milliseconds.',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                    b.textContent = Swal.getTimerLeft()
+                    }
+                }
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+                window.location = "login.html";
+            }
+            }).then((result) => {
+            /* Read more about handling dismissals below */
+               /* if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+            })*/
+            /*swal.fire({
+                    title: '錯誤',
+                    text: "使用者已存在",
+                    icon: 'error',
+                    timer : 1500 
+                    }).then(function (result) {
+                    if (true) {
+                    window.location = "register.html";
+                }
+            });*/         
+            //alert("使用者已存在"); 
+            //window.location.href="register.html"; 
+  
+
+    //window.location.href="login.html"; 
+</script> 
+</html> 

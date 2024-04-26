@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+  .button {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 1200px;
+    cursor: pointer;
+  }
+  .wrapper2 {
+      position: relative;
+      height: 200px;
+      width: 200px;
+      padding: 0px;
+      margin: 0px;
+      background-color: #c0381f;
+      box-shadow: #000000 0px 0px 10px;
+      border-radius: 50%;
+    }
+  .panel {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    background-color: #b7b7b7;
+    border-radius: 100px;
+  }
+  .pointer {
+    position: absolute;
+    left: 75px;
+    top: 80px;
+    z-index: 10;
+    height: 50px;
+    width: 50px;
+    padding: 3px;
+    color: #fff899;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #dc5b5b;
+    border-radius: 50%;
+    border: 1px solid #c0381f;
+    transition: transform 3s cubic-bezier(.2,.93,.43,1);
+  }
+  .pointer::after {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: -35px;
+      border-width: 18px 12px;
+      border-style: solid;
+      border-color: transparent;
+      
+      border-bottom-color: #c0381f;
+}
+.sector {
+      position: absolute;
+      width: 200;
+      height: 200px;
+      border-radius: 0px 200px 100px 0;
+      overflow: hidden;
+      left: 100px;
+      top: 0px;
+      transform-origin: left center;
+    }
+    .sector:nth-child(1) {
+      transform: rotate(-18deg);
+    }
+    .sector:nth-child(2) {
+      transform: rotate(18deg);
+    }
+    .sector:nth-child(3) {
+      transform: rotate(54deg);
+    }
+    .sector:nth-child(4) {
+      transform: rotate(90deg);
+    }
+    .sector:nth-child(5) {
+      transform: rotate(126deg);
+    }
+    .sector:nth-child(6) {
+      transform: rotate(162deg);
+    }
+    .sector:nth-child(7) {
+      transform: rotate(198deg);
+    }
+    .sector:nth-child(8) {
+      transform: rotate(234deg);
+    }
+    .sector:nth-child(9) {
+      transform: rotate(270deg);
+    }
+    .sector:nth-child(10) {
+      transform: rotate(306deg);
+    }
+    .sector:nth-child(2n+1) .sector-inner {
+      background: #fef6e0;
+    }
+    .sector:nth-child(2n) .sector-inner {
+      background: #ffffff;
+    }
+    .sector-inner {
+      text-align: center;
+      display: block;
+      width: 100px;
+      padding: 5px 3px 0 57px;
+      height: 195px;
+      transform: translateX(-100px) rotate(36deg);
+      transform-origin: right center;
+      border-radius: 100px 0 0 100px;
+    }
+    .sector-inner span {
+      display: block;
+      transform-origin: center;
+      transform: rotate(-19deg);
+      color: #d46854;
+    }
+
+  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Profile</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Main Sidebar Container -->
+  <!-- Content Wrapper. Contains page content -->
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+
+            <% if(home){ %>
+              <h1>Main Page</h1>
+            <%} else{ %>
+              <h1><%- user.name %></h1>
+            <%} %>            
+            <!-- 以下要改成 有會員才會顯示登出 -->
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="index">Article</a></li>
+              <!-- <li class="breadcrumb-item"><a href="logout">Log out</a></li> -->
+              <% if(own == 777){ %>
+                <li class="breadcrumb-item"><a href="login">Log in</a></li>
+              <%} else{%>
+                <li class="breadcrumb-item"><a href="logout">Log out</a></li>
+              <%} %>
+
+
+              
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="dist/img/facebook-user.jpg"
+                       alt="User profile picture"
+                       
+                  >
+
+                </div>         
+                <h3 class='profile-username text-center'><%- user.name %></h3>
+                <% if(home){ %>
+                  <div class = 'text-center'>
+                    <a href='#' style = 'text-align:center;' data-toggle='modal' data-target='#exampleModal2'><b>Post</b></a>
+                  </div>
+                <% } %>
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header" style = "text-align:center;">
+                <h3 style='text-align:center'>Information</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                  <% if(home){ %>
+                    <h3 style='text-align:center' id = 'lottery'>Tickets:<%- game.ticket %></h3>
+                    <h3 style='text-align:center' id = 'money'>Account:<%- game.money %></h3>
+                  <% }else{ %>
+                    <h3 style='text-align:center'>發文數量:<%- article.length %></h3>
+                  <% }%>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            
+              
+                <% if(home){ %>
+              <div class='wrapper'>
+                  <div class='panel' style = 'margin:0 auto;'>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$0</span>
+                      </div>
+                    </div>
+                    <div class='sector'>
+                        <div class='sector-inner'>
+                            <span>$50</span>
+                        </div>
+                    </div>
+                    <div class='sector'>
+                        <div class='sector-inner'>
+                            <span>$0</span>
+                        </div>
+                    </div>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$150</span>
+                      </div>
+                    </div>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$500</span>
+                      </div>
+                    </div>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$0</span>
+                      </div>
+                    </div>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$20</span>
+                      </div>
+                    </div>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$0</span>
+                      </div>
+                    </div>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$50</span>
+                      </div>
+                    </div>
+                    <div class='sector'>
+                      <div class='sector-inner'>
+                        <span>$20</span>
+                      </div>
+                    </div>
+                  <div class='pointer' onclick = 'run()'><a href = '#'>Start</a></div>
+                </div>
+              </div>"
+        <% } %>
+        
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" data-toggle="tab">Articles</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+       
+              
+              <!-- <button type='button' class='btn btn-default btn-sm' onclick = "like(50 ,2222@123)"><i class='far fa-thumbs-up'></i> Like</button>
+              <span class='float-right text-muted' id = 'good50 ? likes - ? comments</span></div>                           -->
+
+              <!-- <button onclick="like(50 ,'2222@123')">Click me</button> -->
+              
+             
+              
+              <% if(article.length != 0){   %>
+                <%var j = 0 , countagree=0,countmsg=0; %>
+                <%  for(var i=0; i<article.length ;i++){  %>
+                  <div class='post'>
+                    <div class='card-header'>
+                      <div class='user-block' style = 'height:40px;width:500px;'>
+                        <h4><%-article[i].tittle %> </h4>
+                        <h6><%-article[i].time %> </h6>
+                      </div>
+                    
+                    <% if(home){ %>
+                      <div class = 'card-tools'style = 'height:20px'>
+                        <button type='button' class='btn btn-tool' onclick = "getart(<%-article[i].ID %>)" data-toggle='modal' data-target='#exampleModal'>
+                          <i class='fas fa-pencil-alt mr-1'></i>
+                            <button type='button' class='btn btn-tool' onclick = "aler(<%-article[i].ID %>)">
+                          <i class='fas fa-times'></i>
+                        </button>
+                      </div> 
+                      <% } %>  
+                    <!-- //this page for main page that have edit and delete button , not for visitor . -->
+
+
+                    </div>
+                    <div class = 'card-body' id = <%- article[i].ID %> >
+                          <p><%- article[i].context %></p>
+                          <%  for(var k=0; k<agreearti.length ;k++){ 
+                            
+                              if(agreearti[k].tittleid == article[i].ID)
+                              {
+                                countagree ++ ;
+                              }
+                            
+                            }
+                             //this is account agree for article
+                          %>
+                          <!-- <p>agree.len= <%= countagree %></p> -->
+
+                          <%  for(var k=0; k<message.length ;k++){ 
+                            
+                              if(message[k].tittleid == article[i].ID)
+                              {
+                                countmsg ++ ;
+                              }
+                            
+                            }
+                           //this is account agree for article
+                          %>
+                          <!-- <p>msg.len= <%= countmsg %></p> -->
+
+                          
+                          <!-- <p>agree.len= <%= agree.length %></p> -->
+
+                    <%if(j < agree.length){ %>
+
+                      <!-- <p>agree.len= <%= agree[j].tittleid %></p> -->
+
+                      <% if(agree[j].tittleid == article[i].ID ){ %> 
+                        <button type='button' class='btn btn-default btn-sm' onclick = "dislike( <%- article[i].ID %> ,'<%- own %>')"><i class='fas fa-thumbs-up'></i> Like</button>
+                        <span class='float-right text-muted' id = 'good<%- article[i].ID %>'><%=countagree%> likes - <%=countmsg%> comments</span></div> 
+
+                      <%j = j+1;  }else{ %>
+                        <button type='button' class='btn btn-default btn-sm' onclick = "like(<%- article[i].ID %>,'<%- own %>')"><i class='far fa-thumbs-up'></i> Like</button>
+                        <span class='float-right text-muted' id = 'good<%- article[i].ID %>'><%=countagree%> likes - <%=countmsg%> comments</span></div>                          
+                      <% } %>                    
+                    <% } // j is not over agree length
+                      else if(agree.length == 0 ) {%>
+                        <button type='button' class='btn btn-default btn-sm' onclick = "like(<%- article[i].ID %>,'<%- own %>')"><i class='far fa-thumbs-up'></i> Like</button>
+                        <span class='float-right text-muted' id = 'good<%- article[i].ID %>'><%=countagree%> likes - <%=countmsg%> comments</span>
+                      
+                    </div>                          
+                      <%} else{ %>
+                        <button type='button' class='btn btn-default btn-sm' onclick = "like(<%- article[i].ID %>,'<%- own %>')"><i class='far fa-thumbs-up'></i> Like</button>
+                        <span class='float-right text-muted' id = 'good<%- article[i].ID %>'><%=countagree%> likes - <%=countmsg%> comments</span>
+                    </div> 
+
+                      <%} %>
+
+                  <!-- no if-else to show -->
+
+
+                  <div class='card-footer card-comments' id = 'replys<%- article[i].ID %>'>
+                  
+                    <!-- if($getid != 999)  your session is not vistor view to view message context -->
+                    
+                    
+                    <% if(own != 777){ %>
+                      <div class = 'card-comment'>
+                        <input class='form-control form-control-sm' type='text' name = 'replys<%- article[i].ID %>' placeholder='Type a comment' onkeypress='if (event.keyCode == 13) {test(<%- article[i].ID %>);}'>
+                      </div>
+                    <% } %>
+                    <!-- for loop to show message -->
+                    <%  for(var k=0; k<message.length ;k++){ 
+                            
+                      if(message[k].tittleid == article[i].ID) {  %>
+
+                          <div class='card-comment'>
+                            <span class='username'>
+                              <%= message[k].name %>
+                              <span class='text-muted float-right'><%= message[k].time %></span>
+                            </span><%= message[k].msg %>
+                          </div>                          
+                          
+                    <%  }
+                      
+                      }
+                      //this is account agree for article
+                    %>
+
+
+
+                    </div>
+                  </div>
+                  <!-- <br/> <%=j %>   -->
+                <%countagree = 0 ; countmsg=0 ; } j = 0 ;  %>
+
+
+              
+              
+                  
+                <!-- article  -->
+                <!-- <h4><%- article[0].time %> </h4> -->
+              <% } %>  
+              <!-- <?php
+                  // session_start();
+                  error_reporting(0);
+                  $userid = $_GET["userid"];
+                  $exist = mysqli_query($con,"SELECT * FROM `article` WHERE `userid` = '$userid' order by time desc");
+                  // $article = mysqli_fetch_array($exist);
+                  $row = mysqli_num_rows($exist);
+                  if($row){
+                    $count_art = 1;
+                    while($article = mysqli_fetch_array($exist)){
+                      $time = substr($article[4],0,19);
+                            echo"<div class='post'>";
+                              echo"<div class='card-header'>";
+                                  echo"<div class='user-block' style = 'height:40px;width:500px;'>
+                                  <h4>$article[2]
+                                  <h6>$time
+                                </div>";
+                              $getid = $_SESSION['member'];
+                              $userid = $_GET["userid"];
+                              if(!$getid){
+                                $getid=999;
+                              }
+                              if($userid == $getid){
+                              echo"
+                              <div class = 'card-tools'style = 'height:20px'>
+                              <button type='button' class='btn btn-tool' onclick = 'getart($article[0])' data-toggle='modal' data-target='#exampleModal'>
+                              <i class='fas fa-pencil-alt mr-1'></i>
+                              <button type='button' class='btn btn-tool' onclick = 'aler($article[0],$getid)'>
+                                <i class='fas fa-times'></i>
+                              </button></div>";
+                              }
+                              echo"</div>";
+                              echo"<div class = 'card-body' id = $article[0]><p>
+                                $article[3]
+                              </p>";
+                              $existreply = mysqli_query($con,"SELECT * FROM `reply` WHERE `article_id` = '$article[0]' order by time desc");
+                              $rows = mysqli_num_rows($existreply);
+                              $existgood = mysqli_query($con,"SELECT * FROM `good` WHERE `article_id` = '$article[0]' AND `userid` = $getid");
+                              $row_good = mysqli_num_rows($existgood);
+                              $existgoods = mysqli_query($con,"SELECT * FROM `good` WHERE `article_id` = '$article[0]'");
+                              $row_goods = mysqli_num_rows($existgoods);
+                              if($row_good){
+                                echo"<button type='button' class='btn btn-default btn-sm' onclick = 'dislike($article[0],$getid,$rows)'><i class='fas fa-thumbs-up'></i> Like</button>
+                              <span class='float-right text-muted' id = 'good$article[0]'>$row_goods likes - $rows comments</span></div>";
+                              }
+                              else{
+                                echo"<button type='button' class='btn btn-default btn-sm' onclick = 'like($article[0],$getid)'><i class='far fa-thumbs-up'></i> Like</button>
+                              <span class='float-right text-muted' id = 'good$article[0]'>$row_goods likes - $rows comments</span></div>";
+                              }
+                              echo"<div class='card-footer card-comments' id = 'replys$article[0]'>";
+                              if($getid != 999){
+                                echo"<div class = 'card-comment'><input class='form-control form-control-sm' type='text' name = 'replys$article[0]' placeholder='Type a comment' onkeypress='if (event.keyCode == 13) {test($article[0]);}'></div>";
+                              }
+                              if($rows){
+                                while($reply = mysqli_fetch_array($existreply)){
+                                  $existuser = mysqli_query($con,"SELECT * FROM `user` WHERE `id` = '$reply[1]'");
+                                  $name = mysqli_fetch_array($existuser);
+                                  $re_time = substr($reply[3],0,19);
+                                  echo"<div class='card-comment'>";
+                                  echo" <span class='username'>
+                                  $name[3]
+                                  <span class='text-muted float-right'>$re_time</span>
+                                </span>$reply[2]</div>";
+                                }
+                              }
+                            echo "</div></div>";
+                            $count_art+=1;
+                    }
+                  }
+              ?> -->
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+  <script type="text/javascript">
+      var running = 0;
+      var index = 0;
+      var lastang=0;
+      var lastcount=0;
+      // $('#exampleModal').on('show.bs.modal', function (event) {
+      //     var btnThis = $(event.relatedTarget); //觸發事件的按鈕
+      //     var modal = $(this); //當前模態框
+      //     modal.find('.content').val(modalId);
+      // });
+      function changedata(userid){
+        var artid = document.getElementById('Title').name;
+        var title = document.getElementById('Title').value;
+        var content = document.getElementById('inputDescription').value;
+        
+        //  console.log(title);
+        //  console.log(content);
+        //  console.log(artid);
+        $.ajax({
+              type: "GET",//方法
+              url: "editupdate" ,//表單接收url
+              data: {"id":  artid,"title":title,"content":content},
+              success: function (result) {
+                //提交成功
+                if(result){
+                  console.log(result)
+                  location.href="profile?user=" + result;
+                }
+              },
+              error : function(text) {
+                //提交失敗
+                  alert("連接失敗");
+              }
+          });
+      }
+      function getart(id){
+        // console.log(id);
+        $.ajax({
+              
+              type: "GET",//方法
+              url: "editarticle" ,//表單接收url
+              data: {"id":  id},
+              success: function (result) {
+                //提交成功
+
+                
+                if(result){
+                  //console.log(typeof result);
+                  // console.log(result.id);
+                  var Title = result.tittle ;
+                  var content = result.context ;
+                  var id = result.id ;
+                  //var re = JSON.parse(result);
+                  // console.log(result);
+                  var modal = $(this); //當前模態框
+                  
+                  document.getElementById('Title').value = Title;
+                  document.getElementById('Title').name = id;
+                  document.getElementById('inputDescription').value = content;
+                  // $('#Title').text(re[0].title);
+                }
+              },
+              error : function(text) {
+                //提交失敗
+                  alert("連接失敗");
+              }
+          });
+        // console.log(title);
+        // console.log(content);
+
+      }
+      function funcx() 
+      { 
+      // your code here 
+        // let pointer = document.getElementsByClassName('pointer')[0];
+        // pointer.style.transform = `rotate(${0}deg)`;
+        let reward = ['銘謝惠顧', '$50', '銘謝惠顧', '$150', '$500', '銘謝惠顧', '$20', '銘謝惠顧', '$50', '$20'];
+        alert(reward[index]);
+        var account = $("#money").text().toString();
+        var moneyindex = 0;
+        var lottery_str = $("#lottery").text().toString();
+        var lotteryindex =0;
+        for(j = account.length-1;j>=0;j--){
+          if(j == account.length-1){
+            if(account.slice(j)==":"){
+              moneyindex = j;
+              break;
+            }
+          }
+          else{
+            if(account.slice(j,j+1)==":"){
+              moneyindex = j;
+              break;
+            }
+          }
+        }
+        for(j = lottery_str.length-1;j>=0;j--){
+          if(j == lottery_str.length-1){
+            if(lottery_str.slice(j)==":"){
+              lotteryindex = j;
+              break;
+            }
+          }
+          else{
+            if(lottery_str.slice(j,j+1)==":"){
+              lotteryindex = j;
+              break;
+            }
+          }
+        }
+        
+        // alert(account.slice(j+1));
+        var account_int = parseInt(account.slice(moneyindex+1),10);
+        
+        if(index == 1){
+          account_int+=50;
+        }
+        else if(index == 3){
+          account_int+=150;
+        }
+        else if(index == 4){
+          account_int+=500;
+        }
+        else if(index == 6){
+          account_int+=20;
+        }
+        else if(index == 8){
+          account_int+=50;
+        }
+        else if(index ==9){
+          account_int+=20;
+        }
+        account = account_int.toString();
+        var lottery_int = parseInt(lottery_str.slice(lotteryindex+1),10)-1;
+        lottery_str = lottery_int.toString();
+        $("#money").text("Account:"+account);
+        $("#lottery").text("Tickets:"+lottery_str);
+        running = 0;
+      // break out here if needed
+      } 
+      function run(){
+        
+        if(running == 1){
+          alert("抽獎中");
+        }
+        else{
+          
+          $.ajax({
+              
+              type: "GET",//方法
+              url: "lottery" ,//表單接收url
+              success: function (text) {
+                //提交成功
+                  // console.log(data);
+                  // var art = '#'+artid.toString();
+                  // alert(text);
+                  // $(art).html(text);
+                  
+                  //console.log(text.number) ;
+
+                  if(text.number == "???"){
+                    alert("無此帳戶");
+                  }
+                  else if(text.number == "999"){
+                    alert("No ticket");
+                  }
+                  else{
+                    running = 1;
+                    let pointer = document.getElementsByClassName('pointer')[0];
+                    var ang = (parseInt(text.number ,10)-1)*36;
+                    console.log("ang=",ang) ;
+                    if(lastang!=0){
+                      var nowang = 4320*lastcount+ang;
+                    }
+                    else{
+                      var nowang = ang+2160;
+                    }
+                    index = parseInt(text.number,10)-1;
+                    lastang = 1;
+                    lastcount+=1;
+                    // console.log(lastcount);
+                    // console.log(nowang);
+                    pointer.style.transform = `rotateZ(${nowang}deg)`;
+                    setTimeout("funcx()", 3000);
+                    // pointer.style.transform = `rotateZ(${0}deg)`;
+                  }
+
+                  // pointer.style.transform = `rotateZ(${0}deg)`;
+                  // funcx();
+              },
+              error : function(text) {
+                //提交失敗
+                  alert("連接失敗");
+              }
+          });
+        }
+      }
+
+
+      function like(artid,userid){
+        //console.log(userid) ;
+        if(userid==777){
+          alert("未登入");
+        }
+        else{
+        $.ajax({
+              type: "GET",//方法
+              url: "like" ,//表單接收url
+              data: {"artid":artid,"userid":userid},
+              success: function (text) {
+                //提交成功
+                  // console.log(data);
+                  var art = '#'+artid.toString();
+                  // alert(text);
+                  var st = text.toString();
+                  
+                  if(st[0] == "T"){
+                    var lottery_str = $("#lottery").text().toString();
+                    var lotteryindex =0;
+                    for(j = lottery_str.length-1;j>=0;j--){
+                      if(j == lottery_str.length-1){
+                        if(lottery_str.slice(j)==":"){
+                          lotteryindex = j;
+                          break;
+                        }
+                      }
+                      else{
+                        if(lottery_str.slice(j,j+1)==":"){
+                          lotteryindex = j;
+                          break;
+                        }
+                      }
+                    }
+                    var lottery_int = parseInt(lottery_str.slice(lotteryindex+1),10)+1;
+                    lottery_str = lottery_int.toString();
+                    $("#lottery").text("Ticket:"+lottery_str);
+                    var tex = st.slice(1,st.length);
+                    // alert(tex);
+                    //$(art).html(tex);
+                    //console.log(tex) ;
+
+                   
+                    $(art).html(tex);
+                  }
+                  else{
+                    //$(art).html(text);
+                    var head = $(art).html() ;
+                    $(art).html(text);
+                    //var fin = $(art).html();
+                    //console.log('head= ',head);
+                    //console.log('finish= ',fin);
+                  }
+              },
+              error : function(data) {
+                //提交失敗
+                  alert("連接失敗");
+              }
+          });}
+      }
+      function dislike(artid,userid,coments){
+        $.ajax({
+              type: "GET",//方法
+              url: "dislike" ,//表單接收url
+              data: {"artid":artid,"userid":userid},
+              success: function (text) {
+                //提交成功
+                  // console.log(data);
+                  var art = '#'+artid.toString();
+                  // alert(text);
+                  $(art).html(text);
+              },
+              error : function(data) {
+                //提交失敗
+                  alert("連接失敗");
+              }
+          });
+          //console.log('dislike');
+      }
+      function aler(id){
+        if(confirm("確實要刪除嗎?")){
+
+          $.ajax({
+              type: "GET",//方法
+              url: "deleteart" ,//表單接收url
+              data: {"id":  id},
+              success: function (result) {
+                //提交成功
+                if(result){
+                  console.log(result)
+                  location.href="profile?user=" + result;
+                  //location.href="http://localhost/WWW/deletearticle.php?artid=" + result;
+
+                }
+              },
+              error : function(text) {
+                //提交失敗
+                  alert("連接失敗");
+              }
+          });          
+          // alert("已經刪除！"+id);
+        }// if( confirm() ) 
+      }
+      function test(artid){
+        var re= "replys"+artid.toString();
+        var reply = document.getElementsByName(re)[0].value;
+        if(reply){
+          // alert(reply+artid);
+          $.ajax({
+              type: "get",//方法
+              url: "/addreply" ,//表單接收url            
+              data: {"reply":reply,"artid":artid},
+              success: function (data) {
+                //提交成功
+                //console.log(data);
+                  if(data == "999"){
+                      alert("Insufficient balance"); 
+                  }
+                  else if(data == "777"){
+                    alert("資料錯誤");
+                  }
+                  else{
+                    //console.log("data= ",data) ;
+                    var st = data.toString();
+                    if(st[0] == "T"){
+                      console.log("T");
+                      var lottery_str = $("#lottery").text().toString();
+                      var lotteryindex =0;
+                      for(j = lottery_str.length-1;j>=0;j--){
+                        if(j == lottery_str.length-1){
+                          if(lottery_str.slice(j)==":"){
+                            lotteryindex = j;
+                            break;
+                          }
+                        }
+                        else{
+                          if(lottery_str.slice(j,j+1)==":"){
+                            lotteryindex = j;
+                            break;
+                          }
+                        }
+                      }
+                      var lottery_int = parseInt(lottery_str.slice(lotteryindex+1),10)+1;
+                      lottery_str = lottery_int.toString();
+                      $("#lottery").text("Tickets:"+lottery_str);
+                      st = st.slice(1,st.length);
+                    }  // check return T 
+                    // alert(good_have);
+
+
+                    var good = ("#good")+artid.toString();
+                    var strgood = $(good).text().toString();
+                    var count_end = 0;
+                    var count_head =0;
+                    for(j = strgood.length-1;j>=0;j--){
+                      if(j == strgood.length-1){
+                        if(strgood.slice(j)=="c"){
+                          count_end = 0;
+                        }
+                      }
+                      else{
+                        if(strgood.slice(j,j+1)=="c"){
+                          count_end = j;
+                        }
+                        else if(strgood.slice(j,j+1)=="-"){
+                          count_head = j+1;
+                          break
+                        }
+                      }
+                    }
+                    var count_comment = strgood.slice(count_head+1,count_end-1);
+                    var intcount = parseInt(count_comment,10)+1;
+                    var change = strgood.slice(0,count_head+1)+intcount.toString()+strgood.slice(count_end-1,strgood.length);
+                    // alert(change); 
+                    $(good).text(change); // <- update ? like - ? comment function
+                    // alert(strgood);
+                    for(i = st.length-1;i>=0;i--){
+                      // alert(st.slice(i));
+                      if(i == st.length-1){
+                        if(st.slice(i)=='>'){
+                          // alert(i);
+                          var art = '#replys'+artid.toString();
+                          var money = "Account:"+st.slice(i+1);
+                          var good = "#good"+artid.toString();
+                          var text = st.slice(0,i+1);
+                          var str = $(art).html() ;
+                          var head = str.slice(0,530) ;
+                          var tail = str.slice(530,str.length-1)
+                          // var money = "55";
+                          console.log("get str= ",st.slice(i+1))
+                          $("#money").text(money);
+                          // $(good).text(money);
+                           //alert($(art).html);
+                           console.log("tail= ",tail);
+                           str = head + text + tail ;
+                          //console.log("art=",str) ;
+                          $(art).html(str);
+                          break;
+                        }
+                      } // if(i == st.length-1)
+                      else{
+                        if(st.slice(i,i+1)=='>'){
+                          // alert(i);
+                          var art = '#replys'+artid.toString();
+                          var money = "Account:"+st.slice(i+1);
+                          var good = "#good"+artid.toString();
+                          var text = st.slice(0,i+1);
+
+                          var str = $(art).html() ;
+                          var head = str.slice(0,530) ;
+                          var tail = str.slice(530,str.length-1)                          
+                          str = head + text + tail ;
+                          //console.log("get str= ",st.slice(i+1))
+                          
+                          // alert(text);
+                          //alert(art);
+                          
+                          $("#money").text(money);
+                          // $(good).text(money);
+                          $(art).html(str);
+                          break;
+                        }
+                      }// else 
+                        
+                    }  //->else success get data 
+
+                    // alert(st.substring(0,st.length-1));
+                     //alert(st);
+                    // alert(st.slice(-));
+
+                  }//  success:function(data) */
+              },
+              error : function(data) {
+                //提交失敗
+                  alert("連接失敗");
+              }
+          });
+        }
+      }
+      function RegUser() {
+        var title = document.getElementById('Title2').value;
+        var content = document.getElementById('inputDescription2').value;
+        //console.log("tittle=",title);
+          $.ajax({
+              type: "GET",//方法
+              url: "addarticle" ,//表單接收url
+              data: {"title":title,"content":content},
+              success: function (data) {
+                //提交成功
+                  var result=document.getElementById("result");
+                  //註冊後跳轉
+                  var re = data;
+                  // console.log(re);
+                  if(re == "999") {
+                    //寫一個方法，顯示倒數秒數  數到0後跳轉頁面  
+                    // countDown();
+                    //執行countDown方法
+                      // location.href="registered.html";
+                      alert("Insufficient balance");
+                  }
+                  else if(re == "777"){
+                    alert("There are data not entered");
+                  }
+                  else{
+                    location.href="profile?user="+re;
+                  }
+                  console.log("success");
+              },
+              error : function(data) {
+                //提交失敗
+                  var result=document.getElementById("result");
+                  console.log(data)
+                  alert("There are data not entered");
+                  // result.innerHTML=data['response'];
+              }
+          });
+      }//RegUser
+      function upload() {
+        //document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
+        alert("Test");
+      }
+
+  </script>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style = "width:800px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" id="Title" name = "title" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">Content</label>
+                <textarea id="inputDescription"  name = "content" class="form-control" rows="20"></textarea>
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        <button type='button' class='btn btn-primary' onclick = "changedata('<%= user.email %>')">Save changes</button>
+        <!-- <%= user.email %> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style = "width:800px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Post</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" id="Title2" name = "title" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">Content</label>
+                <textarea id="inputDescription2"  name = "content" class="form-control" rows="20"></textarea>
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick = 'RegUser()'>Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+</html>
