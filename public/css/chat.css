@@ -1,0 +1,989 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+
+.clearfix {
+    *zoom: 1
+}
+
+.hide {
+    display: none;
+}
+
+.fr {
+    float: right;
+}
+
+.fl {
+    float: left;
+}
+
+.rela {
+    position: relative;
+}
+
+.abs {
+    position: absolute;
+}
+
+
+/*登錄頁面*/
+
+.login-wrap {
+    background: repeating-linear-gradient(45deg, #1d1b1d 0, #1a171a 15%, #1f116d 30%, #302283 45%, #740d74 60%);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-con {
+    padding: 50px 20px;
+    background-color: white;
+    border-radius: 25px;
+    width: 70%;
+    max-width: 500px;
+}
+
+.login-con p {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.login-con span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.login-con input {
+    width: calc(100% - 200px);
+    min-width: 250px;
+    display: block;
+    margin: 20px auto;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    background-color: #cbe1ff;
+    padding: 0 20px;
+    border-radius: 20px;
+    outline: 0;
+}
+
+.login-con input::placeholder {
+    color: #a19bc4;
+}
+
+.login-con button {
+    width: calc(100% - 200px);
+    min-width: 250px;
+    display: block;
+    margin: 0 auto;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    background: #49494b;
+    color: #fff;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    outline: 0;
+}
+
+
+/* .bottom input {
+    width: calc(100% - 120px);
+    margin: 0 20px;
+    height: 45px;
+    border-radius: 35px;
+    float: left;
+    border: none;
+    outline: none;
+    line-height: 50px;
+    padding: 0 20px;
+    box-shadow: 0px 0px 12px #aee7e7;
+} */
+
+.login-con button:hover {
+    filter: brightness(.8);
+    cursor: pointer;
+}
+
+
+/*人物介面*/
+
+.friend-wrap-top {
+    position: relative;
+    background-color: white;
+    box-shadow: 0px -7px 15px #ddd1c3;
+    padding: 15px;
+    text-align: left;
+}
+
+.friend-wrap-top h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #494949;
+}
+
+.linkman .main .body h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #23a0e9;
+    width: calc(150%);
+}
+
+.linkman {
+    position: absolute;
+    width: 300px;
+    border-right: 1px solid rgb(224, 224, 224);
+    height: 100%;
+}
+
+.linkman .main {
+    width: 300%;
+    height: 100%;
+    background: rgb(234, 234, 234);
+}
+
+.linkman .main .header {
+    height: 25px;
+    padding: 10px;
+}
+
+.linkman .main .header input[type=search] {
+    height: 23px;
+    width: 195px;
+    border: 1px solid #aaa;
+    background-color: rgb(239, 239, 239);
+}
+
+.linkman .main .header input[type=search]:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+#btn-add {
+    float: right;
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-style: normal;
+    text-align: center;
+    line-height: 25px;
+    font-size: 1.2em;
+    background-color: rgb(220, 220, 220);
+    cursor: pointer;
+}
+
+#btn-add:hover {
+    background-color: rgb(209, 209, 209);
+}
+
+.linkman .main .body {
+    height: calc(100% - 45px);
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.linkman .main .body:hover {
+    overflow-y: scroll;
+}
+
+.linkman .main .body ul li {
+    display: block;
+    width: calc(150%);
+    height: 75px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+
+/* 觸碰人員列表 */
+
+.linkman .main .body ul li:hover {
+    background-color: rgb(119, 120, 121);
+}
+
+.linkman .main .body ul li.active:hover {
+    background-color: rgb(202, 205, 211);
+}
+
+.linkman .main .body ul li.active {
+    background-color: rgb(202, 205, 211);
+}
+
+.linkman .main .body ul li img {
+    width: 50px;
+    /* 圓形 */
+    border-radius: 1px;
+}
+
+.linkman .main .body ul li span {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.abc {
+    height: 25px!important;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    line-height: 25px;
+    background-color: rgb(225, 225, 225);
+}
+
+.nick-name {
+    display: inline-block;
+    font-size: 16px;
+    color: rgb(19, 18, 18);
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: rgb(201, 201, 201);
+}
+
+::-moz-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+::-moz-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: rgb(201, 201, 201);
+}
+
+#chat {
+    position: absolute;
+    left: 300px;
+    width: calc(100% - 300px);
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+.chat {
+    position: absolute;
+    width: 100%;
+    height: 87%;
+    display: none;
+}
+
+.chat-active {
+    display: block;
+}
+
+.chat .main {
+    width: 100%;
+    height: 100%;
+    background: rgb(245, 245, 245);
+}
+
+.chat .main .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 139px;
+    background: #b4b3b3;
+    border-top: 1px solid rgb(236, 236, 236);
+}
+
+.footer .box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.message {
+    height: calc(100% - 140px);
+}
+
+.message .head {
+    height: 50px;
+}
+
+.message .head p {
+    line-height: 50px;
+    text-align: center;
+    color: #222;
+}
+
+.message .body {
+    width: 100%;
+    height: calc(100% - 50px);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.message .body:hover {
+    overflow-y: scroll;
+}
+
+.message .body ul li img {
+    float: left;
+    width: 32px;
+}
+
+.message .body .chat-msg {
+    /* padding: 10px 0; */
+    margin: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.message .body ul li {
+    overflow: hidden;
+    margin: 15px;
+    padding: 5px;
+}
+
+.message .body ul li img.mehead {
+    float: right;
+    width: 32px;
+}
+
+.message .body ul li .speak {
+    background-color: rgb(158, 234, 106);
+    padding: 4px 8px;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 16px;
+    color: #333;
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message .body ul li .mespeak {
+    float: right;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* .footer .box .head {
+    height: 30px;
+    width: calc(100% - 20px);
+    padding: 10px;
+} */
+
+
+/* .footer .box .body {
+    height: 60px;
+    width: 100%;
+} */
+
+.footer .box .body {
+    width: calc(100% - 120px);
+    margin: 0 20px;
+    height: 45px;
+    border-radius: 35px;
+    float: left;
+    border: none;
+    outline: none;
+    line-height: 50px;
+    padding: 0 20px;
+    background-color: #f7f1f7;
+    box-shadow: 0px 0px 12px #aee7e7;
+    margin-top: 20px;
+}
+
+.ip3 {
+    max-width: calc(100% - 30px);
+    min-width: calc(100% - 30px);
+    max-height: 15px;
+    min-height: 15px;
+    font-size: 1.5em;
+    font-weight: 500;
+    padding: 15px;
+    border: 0;
+    background-color: transparent;
+}
+
+.ip3:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.footer .box .foot {
+    height: 40px;
+    width: 100%;
+}
+
+.send {
+    float: right;
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid #e1e1e1;
+    color: #7a7b7a;
+    background-color: #444546;
+    text-decoration: none;
+    margin-right: 10px;
+    margin-top: 20px;
+    border-radius: 35px;
+}
+
+.send img {
+    width: 15px;
+}
+
+.icon {
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.icon path {
+    fill: #999;
+}
+
+.icon:hover path {
+    fill: #40C5FF;
+}
+
+#addpanal {
+    display: none;
+    top: 50px;
+    left: 150px;
+    width: 450px;
+    height: 330px;
+    position: absolute;
+}
+
+#settingpanal {
+    display: none;
+    top: 50px;
+    left: 150px;
+    width: 450px;
+    height: 330px;
+    position: absolute;
+}
+
+#emoji {
+    display: none;
+    padding: 9px;
+    bottom: 134px;
+    left: 312px;
+    width: 360px;
+    min-height: 100px;
+    position: absolute;
+    overflow: hidden;
+    font-size: 19px;
+    border-radius: 5px;
+}
+
+#emoji span {
+    display: inline-block;
+    width: 20px;
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#emoji span:hover {
+    background: #f5f5f5;
+}
+
+.shadow {
+    background: #fff;
+    cursor: default;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    z-index: 99;
+}
+
+#newfirend {
+    height: 40px;
+    width: 40px;
+    border-radius: 3px;
+    background-color: rgb(250, 157, 59);
+    display: inline-block;
+}
+
+.outline {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+}
+
+.outline img {
+    width: 60px;
+    position: absolute;
+    left: 49%;
+    top: 47%;
+}
+
+
+/*聊天界⾯的css*/
+
+.chat-wrap {
+    width: 100%;
+    height: 100%;
+    /* overflow-y: scroll; */
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.chat-wrap-top {
+    position: relative;
+    background-color: white;
+    box-shadow: 0px -7px 15px #c3c4dd;
+    padding: 15px;
+    text-align: left;
+}
+
+.chat-wrap-top h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #494949;
+}
+
+#friend-title {
+    padding: 5px;
+}
+
+
+/* 切換聊天室按鈕 */
+
+.sin-chBtn {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0dd5f0;
+    background-color: rgb(91, 94, 92);
+    padding: 5px;
+    background-color: transparent;
+}
+
+.sin-chBtn img {
+    width: 50px;
+    height: 50px;
+}
+
+.mul-chBtn {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0dd5f0;
+    background-color: rgb(91, 94, 92);
+    padding: 3px;
+    background-color: transparent;
+}
+
+.mul-chBtn img {
+    width: 50px;
+    height: 50px;
+}
+
+
+/* 離開聊天室按鈕 */
+
+.leaveBtn {
+    position: absolute;
+    right: 10px;
+    top: -3px;
+    padding: 17px;
+    border: none;
+    color: #7062D1;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 20px;
+    outline: none;
+    opacity: .3;
+}
+
+.leaveBtn img {
+    width: 15px;
+}
+
+.leaveBtn:hover {
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.leaveBtn2 {
+    position: absolute;
+    right: 10px;
+    top: -3px;
+    padding: 17px;
+    border: none;
+    color: #7062D1;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 20px;
+    outline: none;
+    opacity: .3;
+}
+
+.leaveBtn2 img {
+    width: 15px;
+}
+
+.leaveBtn2:hover {
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.chat-wrap-main {
+    padding: 0 25px;
+    padding-bottom: 70px;
+    width: 100%;
+    height: calc(100% - 20%);
+    overflow: scroll
+}
+
+.chat-con {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-con p {
+    width: 50%;
+    padding: 5px 20px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin: 15px 0;
+    color: gray;
+    border-radius: 20px;
+    opacity: .7;
+}
+
+
+/* 傳送訊息框位置按鈕 */
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* 原本是100px */
+    height: 150px;
+    background: rgba(199, 196, 196, 0.8);
+    padding-top: 30px;
+}
+
+.bottom .items {
+    height: 40px;
+    margin: 5px 0px;
+    border-radius: 35px;
+    position: relative;
+}
+
+#colorStyle {
+    border: none;
+    padding: 0;
+}
+
+
+/*custom the file input*/
+
+.imageLable {
+    position: relative;
+    float: left;
+    box-shadow: 0px 0px 12px #aee7e7;
+    margin-left: 20px;
+}
+
+.sendtup {
+    width: 45px;
+    height: 30px;
+    border-radius: 35px;
+}
+
+#sendimg {
+    float: left;
+    position: absolute;
+    width: 52px;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+#emo {
+    position: relative;
+    float: left;
+    width: 45px;
+    height: 30px;
+    border-radius: 35px;
+    box-shadow: 0px 0px 12px #aee7e7;
+    margin-left: 25px;
+}
+
+.bottom .ip2 {
+    width: calc(100% - 120px);
+    margin: 0 20px;
+    height: 45px;
+    border-radius: 35px;
+    float: left;
+    border: none;
+    outline: none;
+    line-height: 50px;
+    padding: 0 20px;
+    box-shadow: 0px 0px 12px #aee7e7;
+}
+
+.bottom button {
+    margin-right: 25px;
+    width: 45px;
+    height: 45px;
+    border-radius: 25px;
+    float: right;
+    border: none;
+    background: #3d3d3d;
+    outline: none;
+    color: rgb(250, 250, 250);
+}
+
+.bottom button:hover {
+    filter: brightness(1.1);
+    cursor: pointer;
+    transition: .2s;
+    transform: scale(1.05);
+}
+
+.sendBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sendBtn img {
+    width: 15px;
+}
+
+
+/* 多人聊天室傳送聊天訊息 */
+
+.chat-item {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.item-left .message {
+    background: #1b20c4;
+    color: white;
+    font-size: 15px;
+    border-radius: 0px 15px 15px 15px;
+    margin-top: 20px;
+    padding: 15px !important;
+    font-weight: 400;
+}
+
+.item-right .message {
+    background: white;
+    color: #413177;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 15px 0px 15px 15px;
+    padding: 15px !important;
+    margin-top: 20px;
+    margin-right: 0;
+}
+
+.item-left .pimg {
+    background: #1b20c4;
+    color: white;
+    font-size: 15px;
+    border-radius: 0px 15px 15px 15px;
+    margin-top: 20px;
+    padding: 15px !important;
+    font-weight: 400;
+}
+
+.item-right .pimg {
+    background: white;
+    color: #413177;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 15px 0px 15px 15px;
+    padding: 15px !important;
+    margin-top: 50px;
+    margin-right: 0;
+    float: right
+}
+
+.item-left .uname {
+    font-size: 12px;
+    left: 0px;
+    top: 0;
+    color: gray;
+}
+
+.item-right .uname {
+    font-size: 12px;
+    right: 0px;
+    top: 0;
+    color: gray;
+}
+
+.chat-item .message {
+    display: block;
+    padding: 10px;
+}
+
+.chat-item .pimg {
+    display: block;
+    padding: 30px;
+}
+
+
+/* 表情 */
+
+#emojiWrapper {
+    display: none;
+    width: 500px;
+    bottom: 135px;
+    position: absolute;
+    background-color: #aaa;
+    box-shadow: 0 0 10px #555;
+    margin-left: 20px;
+}
+
+#emojiWrapper img {
+    margin: 2px;
+    padding: 2px;
+    width: 25px;
+    height: 25px;
+}
+
+#emojiWrapper img:hover {
+    background-color: blue;
+}
+
+.emo {
+    display: inline;
+}
+
+
+/* .chat-body {
+    width: 100%;
+    height: calc(100% - 15%);
+    overflow: scroll
+
+
+}
+*/
+
+
+/* 單人聊天2u03ru604su.3 */
+
+.footer .box .head {
+    height: 25px;
+    margin: 5px 0px;
+    /* border-radius: 35px; */
+    position: relative;
+}
+
+.footer .box .head .imageLable-s {
+    position: relative;
+    float: left;
+    box-shadow: 0px 0px 12px #aee7e7;
+    margin-left: 20px;
+    border-radius: 35px;
+}
+
+.footer .box .head .sendtup-s {
+    width: 45px;
+    height: 30px;
+    border-radius: 35px;
+}
+
+.footer .box .head #sendimg-s {
+    float: left;
+    position: absolute;
+    width: 52px;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.footer .box .head .emo-s {
+    position: relative;
+    float: left;
+    width: 45px;
+    height: 30px;
+    border-radius: 35px;
+    box-shadow: 0px 0px 12px #aee7e7;
+    margin-left: 25px;
+}
+
+
+/* 表情 */
+
+.emojiWrapper2 {
+    display: none;
+    width: 500px;
+    bottom: 135px;
+    position: absolute;
+    background-color: #aaa;
+    box-shadow: 0 0 10px #555;
+    margin-left: 20px;
+}
+
+.emojiWrapper2 img {
+    margin: 2px;
+    padding: 2px;
+    width: 25px;
+    height: 25px;
+}
+
+.emojiWrapper2 img:hover {
+    background-color: blue;
+}
+
+.emo-s {
+    display: inline;
+}
